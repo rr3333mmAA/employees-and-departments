@@ -79,7 +79,7 @@ This project is a Django web application that displays a tree-like structure of 
     ```bash
     python manage.py generate_data   
     # It generates 25 departments and 50000 employees.
-    # P.S. It may take a while
+    # P.S. It may take a while :)
     ```
 
 8. **Run the development server**:
