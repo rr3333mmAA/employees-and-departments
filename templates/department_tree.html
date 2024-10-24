@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Tree</title>
+    <style>
+        .toggle { cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Department Structure</h1>
+    <ul class="list-group">
+        {% for department in departments %}
+            <li class="list-group-item">
+                <span class="toggle" data-bs-toggle="collapse" data-bs-target="#department-{{ department.id }}" aria-expanded="false" aria-controls="department-{{ department.id }}">
+                    {{ department.name }}
+                </span>
+                <ul id="department-{{ department.id }}" class="collapse list-group mt-2">
+                    {% for subdepartment in department.subdepartments.all %}
+                        {% include 'department_tree.html' with departments=subdepartment.subdepartments.all %}
+                    {% endfor %}
+                    {% for employee in department.employees.all %}
+                        <li class="list-group-item">
+                            {{ employee.full_name }} - {{ employee.position }} ({{ employee.hire_date }}) - ${{ employee.salary }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
